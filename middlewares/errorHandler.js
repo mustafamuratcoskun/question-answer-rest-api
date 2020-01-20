@@ -13,9 +13,9 @@ const errorHandler = (err,req,res,next) => {
         customError = new CustomError("Duplicate Key Found : Please check your info",400); 
     }
 
-    return res.status(customError.status).json({
+    return res.status(customError.status || 500).json({
         success : false,
-        message : customError.message
+        message : customError.message || "Internal Server Error"
     });
 
 

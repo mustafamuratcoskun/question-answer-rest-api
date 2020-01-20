@@ -2,6 +2,7 @@ const User = require("../models/User");
 const errorWrapper = require("../helpers/errorWrapper");
 const CustomError = require("../helpers/customError");
 
+
 /*
 @description : Register New User
 @access : Public - Everyone can access this functionality
@@ -31,3 +32,6 @@ const register =  errorWrapper(async (req,res,next) => {
 module.exports = {
     register
 };
+
+
+

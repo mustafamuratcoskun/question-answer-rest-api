@@ -17,6 +17,7 @@
   "author": "Mustafa Murat Coşkun",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.8.9"

@@ -10,8 +10,6 @@ dotenv.config({path : "./config/env/config.env"});
 // MongoDb Connection
 connectDatabase();
 
-
-
 const routes = require("./routes");
 
 const app = express();
