@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.use("/auth",auth);
-router.use("/questions",questions);
+//router.use("/questions",questions);
 
 
 
