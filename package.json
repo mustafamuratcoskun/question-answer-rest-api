@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "dev" : "nodemon server"
+    "dev": "nodemon server"
   },
   "keywords": [
     "express",
@@ -18,7 +18,8 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.8.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
