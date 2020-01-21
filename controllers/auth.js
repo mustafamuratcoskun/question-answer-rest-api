@@ -21,14 +21,41 @@ const register =  errorWrapper(async (req,res,next) => {
         password,
         role
     });
+    // Send Token After Register
+    
+    sendTokenToClient(user,200,res);
 
-    res.status(200).json({
+    /*res.status(200).json({
         success : true,
         data : `User Created with id : ${user._id}`
-    });
+    });*/
     
 });
+const sendTokenToClient =  (user,status,res) => {
 
+    // Get Token From User Model
+    const token =  user.getTokenFromModel();
+    const {JWT_COOKIE_EXPIRE,NODE_ENV} = process.env;
+
+
+    // Send To Client With Res
+
+    return res
+    .status(status)
+    .cookie("token",token, {
+        httpOnly : true,
+        domain : "localhost",
+        expires : new Date(Date.now() +  parseInt(JWT_COOKIE_EXPIRE) * 1000 * 60),
+        secure : NODE_ENV === "development" ? false:true
+    })
+    .json({
+        success : true,
+        token,
+        message : `User Created with id : ${user._id}`
+    });
+    
+
+}
 module.exports = {
     register
 };
