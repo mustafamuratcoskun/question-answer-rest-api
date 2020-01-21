@@ -36,7 +36,7 @@ const UserSchema = new Schema({
     }
 
 });
-UserSchema.methods.getTokenFromModel = function() {
+UserSchema.methods.getTokenFromUserModel = function() {
     const {JWT_SECRET_KEY,JWT_EXPIRE} = process.env;
     
     const payload = {

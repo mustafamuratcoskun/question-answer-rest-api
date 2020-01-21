@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const errorWrapper = require("../helpers/errorWrapper");
 const CustomError = require("../helpers/customError");
+const bcrypt = require("bcryptjs");
 
 
 /*
@@ -21,43 +22,72 @@ const register =  errorWrapper(async (req,res,next) => {
         password,
         role
     });
-    // Send Token After Register
-    
-    sendTokenToClient(user,200,res);
 
-    /*res.status(200).json({
-        success : true,
-        data : `User Created with id : ${user._id}`
-    });*/
+    sendTokenToClient(user,res,200);
+
+   
     
 });
-const sendTokenToClient =  (user,status,res) => {
+const login = errorWrapper(async (req,res,next) => {
+
+    const {email,password} = req.body;
+    
+    if(!validateUserInput(email,password)) {
+        return next(new CustomError("Please check your inputs",400));
+    }
+    
+    const user = await User.findOne({email}).select("+password");
+
+    if ( !user || !checkPassword(password,user.password)) {
+        
+        return next(new CustomError("Please check your credentials",404));
+    }
+
+
+    sendTokenToClient(user,res,200);
+    
+
+});
+
+
+const validateUserInput = (email,password) => email && password;
+const checkPassword = (password,hashedPassword) => {
+
+    return bcrypt.compareSync(password, hashedPassword);
+
+}
+const sendTokenToClient =  (user,res,status) => {
 
     // Get Token From User Model
-    const token =  user.getTokenFromModel();
+    const token =  user.getTokenFromUserModel();
     const {JWT_COOKIE_EXPIRE,NODE_ENV} = process.env;
-
-
+    
     // Send To Client With Res
-
+    
     return res
     .status(status)
     .cookie("token",token, {
         httpOnly : true,
         domain : "localhost",
         expires : new Date(Date.now() +  parseInt(JWT_COOKIE_EXPIRE) * 1000 * 60),
-        secure : NODE_ENV === "development" ? false:true
+        secure : NODE_ENV === "development" ? false : true
     })
     .json({
         success : true,
         token,
-        message : `User Created with id : ${user._id}`
+        data : {
+            name : user.name,
+            email : user.email,
+            role : user.role
+        }
     });
     
 
 }
+
 module.exports = {
-    register
+    register,
+    login
 };
 
 
