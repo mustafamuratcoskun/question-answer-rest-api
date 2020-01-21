@@ -35,6 +35,19 @@ const UserSchema = new Schema({
     }
 
 });
+
+UserSchema.pre("save",function (next) {
+    
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) next(err);
+        bcrypt.hash(this.password, salt, (err, hash) => {
+            if (err) next(err);
+            this.password = hash;
+            next();
+        });
+    });
+
+});
 module.exports  = mongoose.model("User",UserSchema);
 
 
