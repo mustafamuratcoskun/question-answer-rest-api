@@ -48,6 +48,15 @@ const login = errorWrapper(async (req,res,next) => {
     
 
 });
+const getLoggedInUser = errorWrapper(async (req,res,next)=>{
+
+    res.status(200).json({
+        success : true,
+        data : req.user
+    });
+
+
+});
 
 
 const validateUserInput = (email,password) => email && password;
@@ -60,6 +69,7 @@ const sendTokenToClient =  (user,res,status) => {
 
     // Get Token From User Model
     const token =  user.getTokenFromUserModel();
+
     const {JWT_COOKIE_EXPIRE,NODE_ENV} = process.env;
     
     // Send To Client With Res
@@ -68,7 +78,6 @@ const sendTokenToClient =  (user,res,status) => {
     .status(status)
     .cookie("token",token, {
         httpOnly : true,
-        domain : "localhost",
         expires : new Date(Date.now() +  parseInt(JWT_COOKIE_EXPIRE) * 1000 * 60),
         secure : NODE_ENV === "development" ? false : true
     })
@@ -87,7 +96,8 @@ const sendTokenToClient =  (user,res,status) => {
 
 module.exports = {
     register,
-    login
+    login,
+    getLoggedInUser
 };
 
 
