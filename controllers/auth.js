@@ -57,7 +57,25 @@ const getLoggedInUser = errorWrapper(async (req,res,next)=>{
 
 
 });
-
+const logout = errorWrapper(async (req,res,next) =>{
+   
+    const {JWT_COOKIE_EXPIRE,NODE_ENV} = process.env;
+    
+    // Send To Client With Res
+    
+    return res
+    .status(200)
+    .cookie("token",null, {
+        httpOnly : true,
+        expires : new Date(Date.now()),
+        secure : NODE_ENV === "development" ? false : true
+    })
+    .json({
+        success : true,
+        message : "Logout Successfull"
+    });
+    
+});
 
 const validateUserInput = (email,password) => email && password;
 const checkPassword = (password,hashedPassword) => {
@@ -97,6 +115,7 @@ const sendTokenToClient =  (user,res,status) => {
 module.exports = {
     register,
     login,
+    logout,
     getLoggedInUser
 };
 

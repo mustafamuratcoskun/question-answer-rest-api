@@ -6,13 +6,15 @@ const router = express.Router();
 const {
     register,
     login,
+    logout,
     getLoggedInUser
 } = require("../controllers/auth");
 const getAccessToRoute = require("../middlewares/authorization/auth");
 
 
 router.post("/register",register);
-router.post("/login",login)
+router.post("/login",login);
+router.get("/logout",getAccessToRoute,logout);
 router.get("/user",getAccessToRoute,getLoggedInUser);
 
 

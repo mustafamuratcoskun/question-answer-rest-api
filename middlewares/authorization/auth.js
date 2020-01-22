@@ -19,12 +19,10 @@ const getAccessToRoute = errorWrapper(async(req,res,next) => {
         if (err) {
             return next(new CustomError("You are not authorized to access this page",403));
         }
-        console.log(decodedToken);
         req.user = {
             id : decodedToken.id,
             name : decodedToken.name
         };
-        console.log("Accessed");
         next();
     });
     
@@ -39,7 +37,7 @@ const getAccessTokenFromHeader = (req) => {
 
 }
 const isTokenIncluded = (req) => {
-    return req.headers.authorization && req.headers.authorization.startWith("Bearer:")
+    return req.headers.authorization && req.headers.authorization.startsWith("Bearer:")
 }
 
 module.exports = getAccessToRoute;
