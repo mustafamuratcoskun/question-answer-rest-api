@@ -78,9 +78,15 @@ const logout = errorWrapper(async (req,res,next) =>{
 });
 const imageUpload = errorWrapper(async (req,res,next) => {
     
+    const user = await User.findByIdAndUpdate(req.user.id,{
+        "profile_image" : req.savedImage
+    },{
+        runValidators : true
+    });
     res.status(200)
     .json({
-        success : true
+        success : true,
+        message : "Photo Upload Successful"
     });
 
 });
