@@ -5,7 +5,7 @@ const CustomError = require("../../helpers/customError");
 
 const storage = multer.diskStorage({
     destination : function(req,file,cb) {
-        console.log(req.body);
+        
         const rootDir = path.dirname(require.main.filename);
         cb(null,path.join(rootDir,"/public/uploads"));
 

@@ -22,14 +22,6 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 app.use("/api/v1",routes);
-app.post("/upload",[getAccessToRoute,photoUpload.single("profile_image")],(req,res,next) => {
-    
-    res.status(200)
-    .json({
-        success : true
-    });
-
-});
 
 
 

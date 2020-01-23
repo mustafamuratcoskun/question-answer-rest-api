@@ -76,7 +76,14 @@ const logout = errorWrapper(async (req,res,next) =>{
     });
     
 });
+const imageUpload = errorWrapper(async (req,res,next) => {
+    
+    res.status(200)
+    .json({
+        success : true
+    });
 
+});
 const validateUserInput = (email,password) => email && password;
 const checkPassword = (password,hashedPassword) => {
 
@@ -116,6 +123,7 @@ module.exports = {
     register,
     login,
     logout,
+    imageUpload,
     getLoggedInUser
 };
 
