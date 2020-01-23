@@ -2,6 +2,8 @@ const express = require("express");
 const connectDatabase = require("./config/js/connectDatabase");
 const errorHandler = require("./middlewares/errors/errorHandler");
 const path = require("path");
+const photoUpload = require("./config/js/multer");
+const getAccessToRoute = require("./middlewares/authorization/auth");
 
 
 
@@ -15,10 +17,21 @@ connectDatabase();
 const routes = require("./routes");
 
 const app = express();
+
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 app.use("/api/v1",routes);
+app.post("/upload",[getAccessToRoute,photoUpload.single("profile_image")],(req,res,next) => {
+    
+    res.status(200)
+    .json({
+        success : true
+    });
+
+});
+
+
 
 
 // Static Files - Uploads
