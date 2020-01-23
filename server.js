@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDatabase = require("./config/js/connectDatabase");
 const errorHandler = require("./middlewares/errors/errorHandler");
+const path = require("path");
 
 
 
@@ -20,6 +21,8 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/v1",routes);
 
 
+// Static Files - Uploads
+app.use(express.static("public"));
 
 // Error Handler Middleware
 app.use(errorHandler);
