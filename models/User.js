@@ -34,6 +34,21 @@ const UserSchema = new Schema({
         default : Date.now
 
     },
+    bio : {
+        title : {
+            type: String
+        },
+        about : {
+            type:String
+        },
+        website : {
+            type: String 
+        },
+        place : {
+            type: String
+        }
+    },
+    
     profile_image : {
         type : String,
         default : "default.jpg"
