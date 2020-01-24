@@ -81,6 +81,7 @@ const imageUpload = errorWrapper(async (req,res,next) => {
     const user = await User.findByIdAndUpdate(req.user.id,{
         "profile_image" : req.savedImage
     },{
+        new: true,
         runValidators : true
     });
     res.status(200)
@@ -89,6 +90,24 @@ const imageUpload = errorWrapper(async (req,res,next) => {
         message : "Photo Upload Successful"
     });
 
+});
+
+const updateDetails = errorWrapper(async (req,res,next) => {
+
+    const updateDetails = req.body;
+
+    const user = await User.findByIdAndUpdate(req.user.id,updateDetails,{
+        new : true,
+        runValidators : true
+    });
+
+    res
+    .status(200)
+    .json({
+        success : true,
+        message : "Details Updated",
+        data : user
+    });
 });
 const validateUserInput = (email,password) => email && password;
 const checkPassword = (password,hashedPassword) => {
@@ -130,7 +149,8 @@ module.exports = {
     login,
     logout,
     imageUpload,
-    getLoggedInUser
+    getLoggedInUser,
+    updateDetails
 };
 
 

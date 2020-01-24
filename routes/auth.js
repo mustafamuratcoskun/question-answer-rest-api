@@ -9,7 +9,8 @@ const {
     login,
     logout,
     getLoggedInUser,
-    imageUpload
+    imageUpload,
+    updateDetails
 } = require("../controllers/auth");
 const getAccessToRoute = require("../middlewares/authorization/auth");
 
@@ -19,6 +20,7 @@ router.post("/login",login);
 router.get("/logout",getAccessToRoute,logout);
 router.get("/user",getAccessToRoute,getLoggedInUser);
 router.post("/upload",[getAccessToRoute,photoUpload.single("profile_image")],imageUpload)
+router.post("/updatedetails",getAccessToRoute,updateDetails);
 
 
 module.exports = router;
