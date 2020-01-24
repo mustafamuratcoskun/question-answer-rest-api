@@ -24,7 +24,25 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/v1",routes);
 
 
+app.get("/sendmail",async (req,res,next) => {
+    try {
+        await require("./config/js/sendEmail")({
+            from: process.env.SMTP_EMAIL, // sender address
+            to: "coskun.m.murat@gmail.com", // list of receivers
+            subject: "Reset Password Token", // Subject line
+            html: "Reset Your Password" // html body
+        });
+        res.status(200)
+        .json({
+            success : true,
+            message : "Email Sent"
+        });
+    }
+    catch(err) {
+        return next(new CustomError("Email Could Not Be Sent",500));
+    }
 
+});
 
 // Static Files - Uploads
 app.use(express.static("public"));

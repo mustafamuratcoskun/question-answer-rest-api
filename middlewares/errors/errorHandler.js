@@ -16,7 +16,8 @@ const errorHandler = (err,req,res,next) => {
     if (err.code === 11000) {
         customError = new CustomError("Duplicate Key Found : Please check your info",400); 
     }
-
+    console.log(customError);
+    
     return res.status(customError.status || 500).json({
         success : false,
         message : customError.message || "Internal Server Error"

@@ -2,6 +2,7 @@ const User = require("../models/User");
 const errorWrapper = require("../helpers/errorWrapper");
 const CustomError = require("../helpers/customError");
 const bcrypt = require("bcryptjs");
+const sendMail = require("../helpers/sendEmail");
 
 
 /*
@@ -109,6 +110,65 @@ const updateDetails = errorWrapper(async (req,res,next) => {
         data : user
     });
 });
+
+const forgotPassword = errorWrapper(async (req,res,next) => {
+
+    const resetEmail = req.body.email;
+
+    // Check Email
+
+    const user = await User.findOne({email: resetEmail});
+
+    if (!user) {
+        return next(new CustomError("User Not Found With That Email",400));
+
+    }
+    const resetPasswordToken = user.getResetPasswordToken();
+    console.log(resetPasswordToken);
+    console.log(user);
+
+    await user.save();
+
+    
+    const resetPasswordUrl = `http://localhost:5000/api/v1/auth/resetPassword?resetPasswordToken=${resetPasswordToken}`;
+
+
+    const emailTemplate = `
+        <h3>Reset Your Password</h3>
+        <p>This <a href = '${resetPasswordUrl}' target = '_blank'>link</a>  will expire in 1 hour</p>
+        
+    `;
+    try {
+        await sendMail({
+            from: process.env.SMTP_EMAIL, // sender address
+            to: resetEmail, // list of receivers
+            subject: "Reset Password Token", // Subject line
+            html: emailTemplate // html body
+        });
+        return res.status(200)
+        .json({
+            success : true,
+            message : "Email Sent",
+            data : user
+        });
+    }
+    catch(err) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        user.save();
+
+        return next(new CustomError("Email Could Not Be Sent",500));
+    }
+    return res.status(200)
+    .json({
+        success : true,
+            message : "Email Sent",
+            data : user
+    });
+    
+    
+});
 const validateUserInput = (email,password) => email && password;
 const checkPassword = (password,hashedPassword) => {
 
@@ -150,7 +210,8 @@ module.exports = {
     logout,
     imageUpload,
     getLoggedInUser,
-    updateDetails
+    updateDetails,
+    forgotPassword
 };
 
 
