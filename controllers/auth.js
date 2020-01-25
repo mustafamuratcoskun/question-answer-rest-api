@@ -169,7 +169,39 @@ const forgotPassword = errorWrapper(async (req,res,next) => {
     
     
 });
+
+const resetPassword = errorWrapper(async (req,res,next) => {
+
+    const {resetPasswordToken} = req.query;
+    const {password} = req.body;
+
+    if (!resetPasswordToken) {
+        return next(new CustomError("Please provide a valid token",400));
+
+    }
+    let user  = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire : {$gt : Date.now()}
+    });
+    if (!user) {
+        return next(new CustomError("Invalid Token or Session Expired",404));
+    }
+    // console.log(password,confirm,req.body);
+    // if (!matchPassword(password,confirm)) {
+    //     return next(new CustomError("Your passwords does not match",400));
+    // }
+    user.password  = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    user = await user.save();
+
+    sendTokenToClient(user,res,200);
+
+});
 const validateUserInput = (email,password) => email && password;
+const matchPassword = (password,confirm) => password === confirm;
+
 const checkPassword = (password,hashedPassword) => {
 
     return bcrypt.compareSync(password, hashedPassword);
@@ -211,7 +243,8 @@ module.exports = {
     imageUpload,
     getLoggedInUser,
     updateDetails,
-    forgotPassword
+    forgotPassword,
+    resetPassword
 };
 
 

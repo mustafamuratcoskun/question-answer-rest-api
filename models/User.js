@@ -88,7 +88,7 @@ UserSchema.methods.getResetPasswordToken = function() {
 
 };
 UserSchema.pre("save",function (next) {
-    console.log(this);
+    
 
     if (!this.isModified("password")){
         next();
