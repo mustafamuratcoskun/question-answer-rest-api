@@ -50,6 +50,28 @@ const deleteUser = errorWrapper(async (req,res,next) => {
 
 
 });
+const getBlockUser = errorWrapper(async(req,res,next) => {
+
+    const {id} = req.params;
+    
+    const result = await getUserById(id);
+    if (!result.success) {
+        return next(result.error);
+
+    }
+    const {user} = result;
+   
+    await User.updateOne({_id : user._id},{blocked : !user.blocked});
+
+    return res
+    .status(200)
+    .json({
+        success : true,
+        message : "User Blocked Successfully"
+    });
+
+});
+
 const getUserById = async (id) => {
     
     const user = await User.findById(id);
@@ -70,7 +92,8 @@ const getUserById = async (id) => {
 module.exports = {
     getAllUsers,
     getSingleUser,
-    deleteUser
+    deleteUser,
+    getBlockUser
 
 }
 

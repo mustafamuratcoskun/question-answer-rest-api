@@ -51,6 +51,10 @@ const UserSchema = new Schema({
         type : String,
         default : "default.jpg"
     },
+    blocked : {
+        type : Boolean,
+        default : false
+    },
     resetPasswordToken : {
         type:String
     },

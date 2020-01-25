@@ -7,7 +7,8 @@ const {
 const {
     getAllUsers,
     getSingleUser,
-    deleteUser
+    deleteUser,
+    getBlockUser
 }  = require("../controllers/admin");
 
 const router = express.Router();
@@ -18,6 +19,7 @@ router.use([getAccessToRoute,adminAccess]);
 
 router.get("/users",getAllUsers);
 router.get("/user/:id",getSingleUser);
+router.get("/block/:id",getBlockUser);
 router.delete("/user/:id",deleteUser);
 
 
