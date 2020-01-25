@@ -6,7 +6,8 @@ const {
 } = require("../middlewares/authorization/auth");
 const {
     getAllUsers,
-    getSingleUser
+    getSingleUser,
+    deleteUser
 }  = require("../controllers/admin");
 
 const router = express.Router();
@@ -17,5 +18,7 @@ router.use([getAccessToRoute,adminAccess]);
 
 router.get("/users",getAllUsers);
 router.get("/user/:id",getSingleUser);
+router.delete("/user/:id",deleteUser);
+
 
 module.exports = router;
