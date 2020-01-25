@@ -4,21 +4,18 @@ const {
     adminAccess
 
 } = require("../middlewares/authorization/auth");
+const {
+    getAllUsers,
+    getSingleUser
+}  = require("../controllers/admin");
 
 const router = express.Router();
-
 
 // users,user, delete,block
 
 router.use([getAccessToRoute,adminAccess]);
 
-router.get("/users",(req,res,next) => {
-
-    return res.status(200)
-    .json({
-        success : true
-    });
-
-});
+router.get("/users",getAllUsers);
+router.get("/user/:id",getSingleUser);
 
 module.exports = router;
