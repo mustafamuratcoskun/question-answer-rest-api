@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const errorWrapper = require("../../helpers/errorWrapper");
+const User = require("../../models/User");
 const CustomError = require("../../helpers/customError");
 
 const getAccessToRoute = errorWrapper(async(req,res,next) => {
@@ -27,7 +28,19 @@ const getAccessToRoute = errorWrapper(async(req,res,next) => {
     });
     
 });
+const adminAccess = errorWrapper(async(req,res,next) => {
+    
+    const user = await User.findById(req.user.id);
 
+    
+
+    if (user.role !== "admin") {
+        return next(new CustomError("Only admins can access this route",403));
+
+    }
+    return next();
+
+});
 const getAccessTokenFromHeader = (req) => {
 
     const authorization = req.headers.authorization;
@@ -40,4 +53,7 @@ const isTokenIncluded = (req) => {
     return req.headers.authorization && req.headers.authorization.startsWith("Bearer:")
 }
 
-module.exports = getAccessToRoute;
+module.exports = {
+    getAccessToRoute,
+    adminAccess
+};

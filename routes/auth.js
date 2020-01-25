@@ -14,7 +14,7 @@ const {
     forgotPassword,
     resetPassword
 } = require("../controllers/auth");
-const getAccessToRoute = require("../middlewares/authorization/auth");
+const {getAccessToRoute} = require("../middlewares/authorization/auth");
 
 
 router.post("/register",register);
