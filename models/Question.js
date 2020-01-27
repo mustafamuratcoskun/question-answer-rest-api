@@ -5,13 +5,13 @@ const QuestionSchema = new Schema({
     title : {
         type : String,
         required:[true,"Please provide a title"],
-        minlength : [20,"Please provide title at least 20 length"],
+        minlength : [10,"Please provide title at least 10 characters"],
         unique : true
     },
     content : {
         type : String,
         required : [true,"Please provide a content"],
-        minlength : [50,"Please provide content at least 50 length"]
+        minlength : [20,"Please provide content at least 20 characters"]
     },
     slug : String,
     vote : {
