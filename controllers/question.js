@@ -58,22 +58,6 @@ const getSingleQuestion = errorWrapper(async (req,res,next) => {
 
 
 });
-const getQuestionById = async (id) => {
-    
-    const question = await Question.findById(id);
-    
-    if (!question) {
-        return {
-            success : false,
-            error : new CustomError(`Question Not Found with Id : ${id}`,404)
-        }
-        
-    }
-    return {
-            success: true,
-            question
-        }
-};
 const editQuestion = errorWrapper(async(req,res,next) => {
     const {id} = req.params;
     const {title,content} = req.body;
@@ -91,9 +75,41 @@ const editQuestion = errorWrapper(async(req,res,next) => {
     });
 
 });
+const deleteQuestion = errorWrapper(async(req,res,next) => {
+    const {id} = req.params;
+    
+
+    await Question.findByIdAndRemove(id);
+
+    
+    res.status(200)
+    .json({
+        success : true,
+        data : {}
+    });
+
+});
+const getQuestionById = async (id) => {
+    
+    const question = await Question.findById(id);
+    
+    if (!question) {
+        return {
+            success : false,
+            error : new CustomError(`Question Not Found with Id : ${id}`,404)
+        }
+        
+    }
+    return {
+            success: true,
+            question
+        }
+};
+
 module.exports = {
     askNewQuestion,
     getAllQuestions,
     getSingleQuestion,
-    editQuestion
+    editQuestion,
+    deleteQuestion
 };

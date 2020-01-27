@@ -4,7 +4,8 @@ const {
     askNewQuestion,
     getAllQuestions,
     getSingleQuestion,
-    editQuestion
+    editQuestion,
+    deleteQuestion
 } = require("../controllers/question");
 
 const {
@@ -23,7 +24,7 @@ router.get("/",getAllQuestions);
 router.get("/:id",getSingleQuestion);
 router.post("/ask",getAccessToRoute,askNewQuestion);
 router.put("/:id/edit",[getAccessToRoute,getQuestionOwnerAccess],editQuestion);
-
+router.delete("/:id/delete",[getAccessToRoute,getQuestionOwnerAccess],deleteQuestion)
 
 
 module.exports = router;
