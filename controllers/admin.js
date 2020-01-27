@@ -40,7 +40,7 @@ const deleteUser = errorWrapper(async (req,res,next) => {
         return next(result.error);
     }
 
-    await User.deleteOne({_id : id});
+    await result.user.remove();
 
     return res.status(200)
     .json({
