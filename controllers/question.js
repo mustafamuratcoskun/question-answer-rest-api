@@ -74,8 +74,26 @@ const getQuestionById = async (id) => {
             question
         }
 };
+const editQuestion = errorWrapper(async(req,res,next) => {
+    const {id} = req.params;
+    const {title,content} = req.body;
+    let question = await Question.findById(id);
+
+    question.title = title;
+    question.content = content;
+
+    question = await question.save();
+    
+    res.status(200)
+    .json({
+        success : true,
+        data :  question
+    });
+
+});
 module.exports = {
     askNewQuestion,
     getAllQuestions,
-    getSingleQuestion
+    getSingleQuestion,
+    editQuestion
 };

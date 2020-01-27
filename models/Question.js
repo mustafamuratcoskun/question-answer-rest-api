@@ -31,17 +31,31 @@ const QuestionSchema = new Schema({
     }
 
 });
+// Pre Update One Method
+
+// QuestionSchema.pre("findOneAndUpdate",async function(){
+//     // if (this._update.title) {
+//     //     this._update.slug = makeSlug(this._update.title);
+//     // }
+// });
+
+// Pre Save Method
 QuestionSchema.pre("save",function(next){
+    if (!this.isModified("title")) next();
     
-    this.slug = slugify(this.title, {
-        replacement: '-',   
-        remove: /[*+~.()'"!:@]/g,
-        lower: true,
-    });
+    this.slug = makeSlug(this.title);
     next();
 
 });
 
+
+const makeSlug = (content) => {
+    return slugify(content,{
+        replacement: '-',   
+        remove: /[*+~.()'"!:@]/g,
+        lower: true,
+    });
+}
 module.exports  = mongoose.model("Question",QuestionSchema);
 
 

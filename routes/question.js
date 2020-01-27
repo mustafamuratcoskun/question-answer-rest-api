@@ -3,11 +3,13 @@ const express = require("express");
 const {
     askNewQuestion,
     getAllQuestions,
-    getSingleQuestion
+    getSingleQuestion,
+    editQuestion
 } = require("../controllers/question");
 
 const {
-    getAccessToRoute
+    getAccessToRoute,
+    getQuestionOwnerAccess
 } = require("../middlewares/authorization/auth");
 
  
@@ -20,6 +22,8 @@ const router = express.Router();
 router.get("/",getAllQuestions);
 router.get("/:id",getSingleQuestion);
 router.post("/ask",getAccessToRoute,askNewQuestion);
+router.put("/:id/edit",[getAccessToRoute,getQuestionOwnerAccess],editQuestion);
+
 
 
 module.exports = router;

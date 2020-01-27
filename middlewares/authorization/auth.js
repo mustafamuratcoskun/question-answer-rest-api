@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const errorWrapper = require("../../helpers/errorWrapper");
 const User = require("../../models/User");
+const Question = require("../../models/Question");
+
 const CustomError = require("../../helpers/customError");
 
 const getAccessToRoute = errorWrapper(async(req,res,next) => {
@@ -28,11 +30,9 @@ const getAccessToRoute = errorWrapper(async(req,res,next) => {
     });
     
 });
-const adminAccess = errorWrapper(async(req,res,next) => {
+const getAdminAccess = errorWrapper(async(req,res,next) => {
     
     const user = await User.findById(req.user.id);
-
-    
 
     if (user.role !== "admin") {
         return next(new CustomError("Only admins can access this route",403));
@@ -41,6 +41,25 @@ const adminAccess = errorWrapper(async(req,res,next) => {
     return next();
 
 });
+const getQuestionOwnerAccess = errorWrapper(async (req,res,next) => {
+
+    const userId = req.user.id;
+    const questionId = req.params.id;
+
+    const question = await Question.findById(questionId);
+    
+    if (!question) {
+        return next(new CustomError(`Question Not Found with Id : ${questionId}`,404));
+    }
+    if (question.user != userId) {
+        return next(new CustomError("Only owner can handle this operation",403));
+
+    }
+    return next();
+    
+});
+
+
 const getAccessTokenFromHeader = (req) => {
 
     const authorization = req.headers.authorization;
@@ -55,5 +74,6 @@ const isTokenIncluded = (req) => {
 
 module.exports = {
     getAccessToRoute,
-    adminAccess
+    getAdminAccess,
+    getQuestionOwnerAccess
 };

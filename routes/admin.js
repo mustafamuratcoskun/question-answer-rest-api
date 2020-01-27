@@ -1,7 +1,7 @@
 const express = require("express");
 const {
     getAccessToRoute,
-    adminAccess
+    getAdminAccess
 
 } = require("../middlewares/authorization/auth");
 const {
@@ -15,7 +15,7 @@ const router = express.Router();
 
 // users,user, delete,block
 
-router.use([getAccessToRoute,adminAccess]);
+router.use([getAccessToRoute,getAdminAccess]);
 
 router.get("/users",getAllUsers);
 router.get("/user/:id",getSingleUser);
