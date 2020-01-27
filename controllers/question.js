@@ -36,9 +36,46 @@ const askNewQuestion = errorWrapper(async(req,res,next) => {
         message : question
     });
 });
+const getSingleQuestion = errorWrapper(async (req,res,next) => {
+    const {id} = req.params;
+
+    const result = await getQuestionById(id);
+
+    if (!result.success){
+        return next(result.error);
+
+    }
+
+    return res
+    .status(200)
+    .json({
+        success : true,
+        data : result.question
+    });
 
 
+    
+
+
+});
+const getQuestionById = async (id) => {
+    
+    const question = await Question.findById(id);
+    
+    if (!question) {
+        return {
+            success : false,
+            error : new CustomError(`Question Not Found with Id : ${id}`,404)
+        }
+        
+    }
+    return {
+            success: true,
+            question
+        }
+};
 module.exports = {
     askNewQuestion,
-    getAllQuestions
+    getAllQuestions,
+    getSingleQuestion
 };
