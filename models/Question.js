@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const slugify = require("slugify");
+
 
 const QuestionSchema = new Schema({
     title : {
@@ -27,6 +29,16 @@ const QuestionSchema = new Schema({
         ref : "User",
         required : true
     }
+
+});
+QuestionSchema.pre("save",function(next){
+    
+    this.slug = slugify(this.title, {
+        replacement: '-',   
+        remove: /[*+~.()'"!:@]/g,
+        lower: true,
+    });
+    next();
 
 });
 
