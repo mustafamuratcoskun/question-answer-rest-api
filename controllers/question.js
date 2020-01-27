@@ -4,7 +4,19 @@ const errorWrapper = require("../helpers/errorWrapper");
 const CustomError = require("../helpers/customError");
 
 
+const getAllQuestions = errorWrapper(async(req,res,next) => {
 
+    const questions = await Question.find({});
+
+    return res
+    .status(200)
+    .json({
+        success : true,
+        count : questions.length,
+        data : questions
+    });
+
+});
 const askNewQuestion = errorWrapper(async(req,res,next) => {
 
     const information = req.body;
@@ -27,5 +39,6 @@ const askNewQuestion = errorWrapper(async(req,res,next) => {
 
 
 module.exports = {
-    askNewQuestion
+    askNewQuestion,
+    getAllQuestions
 };

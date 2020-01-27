@@ -1,7 +1,8 @@
 const express = require("express");
 
 const {
-    askNewQuestion
+    askNewQuestion,
+    getAllQuestions
 } = require("../controllers/question");
 
 const {
@@ -15,7 +16,9 @@ const router = express.Router();
 
 // Ask New Question
 // Permissions - Only Logged In Users
+router.get("/",getAllQuestions);
 
 router.post("/ask",getAccessToRoute,askNewQuestion);
+
 
 module.exports = router;
