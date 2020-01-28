@@ -6,7 +6,8 @@ const CustomError = require("../helpers/customError");
 
 const getAllQuestions = errorWrapper(async(req,res,next) => {
 
-    const questions = await Question.find({});
+    const questions = await Question.find()
+    .populate({path:"user",select:"name profile_image"});
 
     return res
     .status(200)
@@ -20,10 +21,6 @@ const getAllQuestions = errorWrapper(async(req,res,next) => {
 const askNewQuestion = errorWrapper(async(req,res,next) => {
 
     const information = req.body;
-    console.log({
-        ...information,
-        user : req.user.id
-    });
 
     const question  = await Question.create({
         ...information,
@@ -52,10 +49,6 @@ const getSingleQuestion = errorWrapper(async (req,res,next) => {
         success : true,
         data : result.question
     });
-
-
-    
-
 
 });
 const editQuestion = errorWrapper(async(req,res,next) => {
@@ -91,7 +84,8 @@ const deleteQuestion = errorWrapper(async(req,res,next) => {
 });
 const getQuestionById = async (id) => {
     
-    const question = await Question.findById(id);
+    const question = await Question.findById(id)
+                            .populate({path : "user",select: "name profile_image"});
     
     if (!question) {
         return {

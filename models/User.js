@@ -112,7 +112,6 @@ UserSchema.post("remove",async function(next){
         user : this._id
     });
     console.log(result);
-
     
 });
 module.exports  = mongoose.model("User",UserSchema);

@@ -25,37 +25,30 @@ const QuestionSchema = new Schema({
         default : Date.now
     },
     user : {
-        type : Schema.Types.ObjectId,
+        type : mongoose.Schema.ObjectId,
         ref : "User",
         required : true
     }
 
 });
-// Pre Update One Method
-
-// QuestionSchema.pre("findOneAndUpdate",async function(){
-//     // if (this._update.title) {
-//     //     this._update.slug = makeSlug(this._update.title);
-//     // }
-// });
 
 // Pre Save Method
 QuestionSchema.pre("save",function(next){
     if (!this.isModified("title")) next();
     
-    this.slug = makeSlug(this.title);
+    this.slug = this.makeSlug();
     next();
 
 });
 
 
-const makeSlug = (content) => {
-    return slugify(content,{
+QuestionSchema.methods.makeSlug = function(){
+    return slugify(this.title,{
         replacement: '-',   
         remove: /[*+~.()'"!:@]/g,
         lower: true,
     });
-}
+};
 module.exports  = mongoose.model("Question",QuestionSchema);
 
 

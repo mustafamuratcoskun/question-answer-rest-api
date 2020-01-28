@@ -15,6 +15,10 @@ const errorHandler = (err,req,res,next) => {
     if (err.name === "CastError") {
         customError = new CustomError("Please provide a valid id",400);
     }
+    if (err.name === "MongoNetworkError") {
+        customError = new CustomError("There is a problem with network,Please try again later",500);
+        
+    }
     if (err.code === 11000) {
         customError = new CustomError("Duplicate Key Found : Please check your info",400); 
     }
