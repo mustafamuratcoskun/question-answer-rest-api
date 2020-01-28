@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Question = require("./Question");
+const Answer = require("./Answer");
 
 const UserSchema = new Schema({
     name : {
@@ -35,7 +36,6 @@ const UserSchema = new Schema({
         default : Date.now
 
     },
-    
     title : {
         type: String
     },
@@ -112,7 +112,6 @@ UserSchema.post("remove",async function(next){
         user : this._id
     });
     console.log(result);
-    
 });
 module.exports  = mongoose.model("User",UserSchema);
 
