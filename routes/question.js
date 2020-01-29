@@ -1,7 +1,6 @@
 const express = require("express");
 
 const answer = require("./answer");
-const passParameters = require("../middlewares/helpers/url/passParameters");
 const {
     checkQuestionExist
 } = require("../middlewares/helpers/database/databaseErrorHelpers");
@@ -36,7 +35,7 @@ router.delete("/:id/delete",
 [getAccessToRoute,checkQuestionExist,getQuestionOwnerAccess],
 deleteQuestion);
 
-router.use("/:question_id/answers",passParameters,answer);
+router.use("/:question_id/answers",checkQuestionExist,answer);
 
 
 module.exports = router;

@@ -7,10 +7,15 @@ const {
     getAccessToRoute
 } = require("../middlewares/authorization/auth");
 
+const {
+    checkQuestionAndAnswerExist
+} = require("../middlewares/helpers/database/databaseErrorHelpers");
 
-const router = express.Router();
 
-router.get("/:answer_id",getSingleAnswer);
+
+const router = express.Router({mergeParams:true});
+
+router.get("/:answer_id",checkQuestionAndAnswerExist,getSingleAnswer);
 
 
 

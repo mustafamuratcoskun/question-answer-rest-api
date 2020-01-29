@@ -5,7 +5,8 @@ const CustomError = require("../helpers/customError");
 
 
 const getSingleAnswer = errorWrapper(async (req,res,next) => {
-    const {question_id} = req.prevUrlParams;
+    console.log(req.params);
+    
     const {answer_id} = req.params;
   
     const answer = await Answer

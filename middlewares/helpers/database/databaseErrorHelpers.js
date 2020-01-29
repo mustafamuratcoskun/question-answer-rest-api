@@ -9,7 +9,7 @@ const errorWrapper = require(root + "/helpers/errorWrapper");
 const CustomError = require(root + "/helpers/customError");
 
 const checkQuestionExist = errorWrapper(async (req,res,next) => {
-    const question_id = req.params.id;
+    const question_id = req.params.id || req.params.question_id;
 
     const question = await Question.findById(question_id);
     
@@ -22,16 +22,12 @@ const checkQuestionExist = errorWrapper(async (req,res,next) => {
 });
 
 const checkQuestionAndAnswerExist = errorWrapper(async (req,res,next) => {
-    const {answer_id} = req.params;
-    const {question_id} = req.prevUrlParams;
+    const {answer_id,question_id} = req.params;
 
-    const question = await Question.findById(question_id);
-    if (!question) {
-        return next(new CustomError(`Question Not Found with Id : ${question_id}`,404))
-    }
-    const answer = await Answer.findById(answer_id);
+    const answer = await Answer.findOne({_id : answer_id,question:question_id});
+
     if (!answer) {
-        return next(new CustomError(`Answer Not Found with Id : ${answer_id}`,404));
+        return next(new CustomError(`Answer Not Found with Answer Id : ${answer_id} Associated With This Question`,404));
     }
     next();
 });
