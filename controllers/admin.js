@@ -3,6 +3,7 @@ const errorWrapper = require("../helpers/errorWrapper");
 const CustomError = require("../helpers/customError");
 
 
+
 const getAllUsers = errorWrapper(async(req,res,next) => {
 
     const users = await User.find({});
@@ -18,29 +19,22 @@ const getAllUsers = errorWrapper(async(req,res,next) => {
 const getSingleUser = errorWrapper(async(req,res,next) => {
     
     const {id} = req.params;
-    const result = await getUserById(id);
+    
+    const user = await User.findById(id);
 
-    if (!result.success) {
-        return next(result.error);
-    }
-   
     return res
     .status(200)
     .json({
         success : true,
-        data : result.user
+        data : user
     });
 });
 const deleteUser = errorWrapper(async (req,res,next) => {
     const {id} = req.params;
 
-    const result = await getUserById(id);
+    const user = await User.findById(id);
 
-    if (!result.success) {
-        return next(result.error);
-    }
-
-    await result.user.remove();
+    await user.remove();
 
     return res.status(200)
     .json({
@@ -54,12 +48,7 @@ const getBlockUser = errorWrapper(async(req,res,next) => {
 
     const {id} = req.params;
     
-    const result = await getUserById(id);
-    if (!result.success) {
-        return next(result.error);
-
-    }
-    const {user} = result;
+    const user = await User.findById(id);
    
     await User.updateOne({_id : user._id},{blocked : !user.blocked});
 
@@ -72,23 +61,6 @@ const getBlockUser = errorWrapper(async(req,res,next) => {
 
 });
 
-const getUserById = async (id) => {
-    
-    const user = await User.findById(id);
-    
-    if (!user) {
-        return {
-            success : false,
-            error : new CustomError(`User Not Found with Id : ${id}`,404)
-        }
-        
-    }
-    return {
-            success: true,
-            user
-        }
-    
-}
 module.exports = {
     getAllUsers,
     getSingleUser,

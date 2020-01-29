@@ -3,7 +3,6 @@ const Question = require("../models/Question");
 const errorWrapper = require("../helpers/errorWrapper");
 const CustomError = require("../helpers/customError");
 
-
 const getAllQuestions = errorWrapper(async(req,res,next) => {
 
     const questions = await Question.find()
@@ -35,19 +34,14 @@ const askNewQuestion = errorWrapper(async(req,res,next) => {
 });
 const getSingleQuestion = errorWrapper(async (req,res,next) => {
     const {id} = req.params;
-
-    const result = await getQuestionById(id);
-
-    if (!result.success){
-        return next(result.error);
-
-    }
-
+    const question = await Question.findById(id)
+    .populate({path : "user",select: "name profile_image"});
+    
     return res
     .status(200)
     .json({
         success : true,
-        data : result.question
+        data : question
     });
 
 });
@@ -70,7 +64,6 @@ const editQuestion = errorWrapper(async(req,res,next) => {
 });
 const deleteQuestion = errorWrapper(async(req,res,next) => {
     const {id} = req.params;
-    
 
     await Question.findByIdAndRemove(id);
 
@@ -82,23 +75,6 @@ const deleteQuestion = errorWrapper(async(req,res,next) => {
     });
 
 });
-const getQuestionById = async (id) => {
-    
-    const question = await Question.findById(id)
-                            .populate({path : "user",select: "name profile_image"});
-    
-    if (!question) {
-        return {
-            success : false,
-            error : new CustomError(`Question Not Found with Id : ${id}`,404)
-        }
-        
-    }
-    return {
-            success: true,
-            question
-        }
-};
 
 module.exports = {
     askNewQuestion,

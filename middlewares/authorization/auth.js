@@ -48,15 +48,11 @@ const getQuestionOwnerAccess = errorWrapper(async (req,res,next) => {
 
     const question = await Question.findById(questionId);
     
-    if (!question) {
-        return next(new CustomError(`Question Not Found with Id : ${questionId}`,404));
-    }
     if (question.user != userId) {
         return next(new CustomError("Only owner can handle this operation",403));
 
     }
-    return next();
-    
+    return next(); 
 });
 
 

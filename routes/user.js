@@ -1,6 +1,9 @@
 const express = require("express");
 
 const router = express.Router();
+const {
+    checkUserExist
+} = require("../middlewares/helpers/database/databaseErrorHelpers");
 
 // users,profile
 const {
@@ -14,7 +17,7 @@ router.get("/",getAllUsers);
 
 // Get Single User Profile
 
-router.get("/profile/:id",getSingleUser);
+router.get("/profile/:id",checkUserExist,getSingleUser);
 
 
 module.exports = router;

@@ -11,6 +11,10 @@ const {
     getBlockUser
 }  = require("../controllers/admin");
 
+const {
+    checkUserExist
+} = require("../middlewares/helpers/database/databaseErrorHelpers");
+
 const router = express.Router();
 
 // users,user, delete,block
@@ -18,9 +22,9 @@ const router = express.Router();
 router.use([getAccessToRoute,getAdminAccess]);
 
 router.get("/users",getAllUsers);
-router.get("/user/:id",getSingleUser);
-router.get("/block/:id",getBlockUser);
-router.delete("/user/:id",deleteUser);
+router.get("/user/:id",checkUserExist,getSingleUser);
+router.get("/block/:id",checkUserExist,getBlockUser);
+router.delete("/user/:id",checkUserExist,deleteUser);
 
 
 module.exports = router;
