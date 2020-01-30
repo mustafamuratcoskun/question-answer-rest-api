@@ -30,6 +30,10 @@ const AnswerSchema = new Schema({
 
 });
 AnswerSchema.pre("save",async function(next){
+
+
+    if (!this.isModified("user")) return next();
+
     try {
     
         const question = await Question.findById(this.question);
@@ -43,6 +47,6 @@ AnswerSchema.pre("save",async function(next){
     }
  
 });
-module.exports  = mongoose.model("Answer",AnswerSchema);
+module.exports = mongoose.model("Answer",AnswerSchema);
 
 

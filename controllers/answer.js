@@ -60,9 +60,38 @@ const addNewAnswerToQuestion = errorWrapper(async (req,res,next) => {
 
 
 });
+const editAnswer = errorWrapper(async(req,res,next) => {
+    
+    const {answer_id} = req.params;
+    const {content} = req.body;
+
+    let answer = await Answer.findById(answer_id);
+    console.log(answer);
+    
+    answer.content = content;
+
+    answer = await answer.save();
+    
+    res.status(200)
+    .json({
+        success : true,
+        data : answer
+    });
+
+});
+const deleteAnswer = errorWrapper(async (req,res,next) => {
+    res.status(200)
+    .json({
+        success : true,
+        message : "Delete Answer"
+    });
+
+});
 
 module.exports = {
     getSingleAnswer,
     getAllAnswersByQuestion,
-    addNewAnswerToQuestion
+    addNewAnswerToQuestion,
+    editAnswer,
+    deleteAnswer
 };

@@ -2,11 +2,14 @@ const express = require("express");
 const {
     getSingleAnswer,
     getAllAnswersByQuestion,
-    addNewAnswerToQuestion
+    addNewAnswerToQuestion,
+    editAnswer,
+    deleteAnswer
 } = require("../controllers/answer");
 
 const {
-    getAccessToRoute
+    getAccessToRoute,
+    getAnswerOwnerAccess
 } = require("../middlewares/authorization/auth");
 
 const {
@@ -21,8 +24,8 @@ const router = express.Router({mergeParams:true});
 router.get("/",checkQuestionExist,getAllAnswersByQuestion);
 router.post("/",[getAccessToRoute,checkQuestionExist],addNewAnswerToQuestion);
 router.get("/:answer_id",checkQuestionAndAnswerExist,getSingleAnswer);
-
-
+router.put("/:answer_id/edit",[checkQuestionAndAnswerExist,getAccessToRoute,getAnswerOwnerAccess],editAnswer);
+router.delete("/:answer_id/delete",[checkQuestionAndAnswerExist,getAccessToRoute,getAnswerOwnerAccess],deleteAnswer);
 
 
 
