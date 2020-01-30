@@ -1,6 +1,8 @@
 const express = require("express");
 const {
-    getSingleAnswer
+    getSingleAnswer,
+    getAllAnswersByQuestion,
+    addNewAnswerToQuestion
 } = require("../controllers/answer");
 
 const {
@@ -8,13 +10,16 @@ const {
 } = require("../middlewares/authorization/auth");
 
 const {
-    checkQuestionAndAnswerExist
+    checkQuestionAndAnswerExist,
+    checkQuestionExist
 } = require("../middlewares/helpers/database/databaseErrorHelpers");
 
 
 
 const router = express.Router({mergeParams:true});
 
+router.get("/",checkQuestionExist,getAllAnswersByQuestion);
+router.post("/",[getAccessToRoute,checkQuestionExist],addNewAnswerToQuestion);
 router.get("/:answer_id",checkQuestionAndAnswerExist,getSingleAnswer);
 
 
