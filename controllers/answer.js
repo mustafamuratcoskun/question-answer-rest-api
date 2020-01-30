@@ -24,25 +24,38 @@ const getSingleAnswer = errorWrapper(async (req,res,next) => {
 const getAllAnswersByQuestion = errorWrapper(async (req,res,next) => {
     const {question_id} = req.params;
     
-    const comments = await Question
+    const question = await Question
     .findById(question_id)
     .populate("answers")
     .select("answers");
+
+    const answers = question.answers;
 
     res
     .status(200)
     .json({
         success : true,
-        data : comments
+        answersCount : answers.length,
+        data : answers
     });
 
 });
 const addNewAnswerToQuestion = errorWrapper(async (req,res,next) => {
-
+    const {question_id} = req.params;
+    const user_id = req.user.id;
+    
+    const information = req.body;
+    
+    const answer = await Answer.create({
+        ...information,
+        question : question_id,
+        user: user_id
+    });
+    
     res.status(200)
     .json({
         success : true,
-        data : "Add New Question"
+        data : answer
     });
 
 
