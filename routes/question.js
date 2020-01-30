@@ -1,6 +1,7 @@
 const express = require("express");
-
 const answer = require("./answer");
+
+
 const {
     checkQuestionExist
 } = require("../middlewares/helpers/database/databaseErrorHelpers");
@@ -10,7 +11,11 @@ const {
     getAllQuestions,
     getSingleQuestion,
     editQuestion,
-    deleteQuestion
+    deleteQuestion,
+    likeQuestion,
+    undoLikeQuestion
+
+    
 } = require("../controllers/question");
 
 const {
@@ -27,6 +32,8 @@ const router = express.Router();
 // Permissions - Only Logged In Users
 router.get("/",getAllQuestions);
 router.get("/:id",checkQuestionExist,getSingleQuestion);
+router.get("/:id/like",[getAccessToRoute,checkQuestionExist],likeQuestion);
+router.get("/:id/undo_like",[getAccessToRoute,checkQuestionExist],undoLikeQuestion);
 router.post("/ask",getAccessToRoute,askNewQuestion);
 router.put("/:id/edit",
 [getAccessToRoute,checkQuestionExist,getQuestionOwnerAccess],

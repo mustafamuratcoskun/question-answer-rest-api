@@ -23,6 +23,13 @@ const QuestionSchema = new Schema({
         type : Date,
         default : Date.now
     },
+    likes : [
+        {
+            type : mongoose.Schema.ObjectId,
+            ref : "User"
+        }
+    ],
+    
     user : {
         type : mongoose.Schema.ObjectId,
         ref : "User",
@@ -46,6 +53,10 @@ QuestionSchema.pre("save",function(next){
 
 });
 
+QuestionSchema.virtual("likesCount").get(function() {
+
+    return this.likes.length;
+});
 
 QuestionSchema.methods.makeSlug = function(){
     return slugify(this.title,{
