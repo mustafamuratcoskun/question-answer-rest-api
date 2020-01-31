@@ -17,6 +17,12 @@ const AnswerSchema = new Schema({
         type : Date,
         default : Date.now
     },
+    likes : [
+        {
+            type : mongoose.Schema.ObjectId,
+            ref : "User"
+        }
+    ],
     user : {
         type : mongoose.Schema.ObjectId,
         ref : "User",
@@ -46,6 +52,11 @@ AnswerSchema.pre("save",async function(next){
         next(err);
     }
  
+});
+
+AnswerSchema.virtual("likesCount").get(function() {
+
+    return this.likes.length;
 });
 
 AnswerSchema.post("remove",async function(){
