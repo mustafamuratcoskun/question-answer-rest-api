@@ -80,10 +80,17 @@ const editAnswer = errorWrapper(async(req,res,next) => {
 
 });
 const deleteAnswer = errorWrapper(async (req,res,next) => {
+
+    const {question_id,answer_id} = req.params;
+
+    const answer = await Answer.findById(answer_id);
+
+    await answer.remove();
+
     res.status(200)
     .json({
         success : true,
-        message : "Delete Answer"
+        message : {}
     });
 
 });

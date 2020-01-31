@@ -47,6 +47,18 @@ AnswerSchema.pre("save",async function(next){
     }
  
 });
+
+AnswerSchema.post("remove",async function(){
+    
+    
+    const question = await Question.findById(this.question);
+
+    question.answers.splice(question.answers.indexOf(this._id),1);
+
+    await question.save();
+    
+
+});
 module.exports = mongoose.model("Answer",AnswerSchema);
 
 

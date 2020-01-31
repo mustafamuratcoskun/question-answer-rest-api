@@ -111,7 +111,6 @@ UserSchema.post("remove",async function(next){
     const result = await Question.deleteMany({
         user : this._id
     });
-    console.log(result);
 });
 module.exports  = mongoose.model("User",UserSchema);
 
