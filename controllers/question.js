@@ -5,9 +5,6 @@ const CustomError = require("../helpers/customError");
 
 const getAllQuestions = errorWrapper(async(req,res,next) => {
 
-    /*const questions = await Question.find()
-    .populate({path:"user",select:"name profile_image"});*/
-    
     return res
     .status(200)
     .json(res.advanceQueryResults);

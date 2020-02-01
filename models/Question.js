@@ -36,6 +36,11 @@ const QuestionSchema = new Schema({
         ref : "User",
         required : true
     },
+    answerCount  : {
+        type:Number,
+        default : 0
+    },
+    
     answers: [
         {
             type: mongoose.Schema.ObjectId, 

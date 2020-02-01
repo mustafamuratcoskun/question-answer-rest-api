@@ -26,8 +26,7 @@ const getAllAnswersByQuestion = errorWrapper(async (req,res,next) => {
     
     const question = await Question
     .findById(question_id)
-    .populate("answers")
-    .select("answers");
+    .populate("answers");
 
     const answers = question.answers;
 
@@ -35,7 +34,7 @@ const getAllAnswersByQuestion = errorWrapper(async (req,res,next) => {
     .status(200)
     .json({
         success : true,
-        answersCount : answers.length,
+        answerCount : answers.length,
         data : answers
     });
 
