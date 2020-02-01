@@ -5,16 +5,20 @@ const CustomError = require("../helpers/customError");
 
 
 const getAllUsers = errorWrapper(async(req,res,next) => {
+    /*console.log(req.query);
+    const { search } = req.query || "";
 
-    const users = await User.find({});
+    console.log(req.query);
 
+    const regex = new RegExp(search,"i");
+
+    const query = User.find({}).where({name: regex });
+
+    const users = await query;*/
+    
     return res
     .status(200)
-    .json({
-        success : true,
-        count : users.length,
-        data : users
-    });
+    .json(res.advanceQueryResults);
 });
 const getSingleUser = errorWrapper(async(req,res,next) => {
     

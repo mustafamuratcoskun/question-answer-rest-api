@@ -103,13 +103,13 @@ const likeAnswer = errorWrapper(async(req,res,next) => {
         return next(new CustomError("You already liked this answer",400));
     }
     answer.likes.push(req.user.id);
+    answer.likeCount += 1;
 
     await answer.save();
     
     return res.status(200)
     .json({
         success : true,
-        likesCount : answer.likesCount,
         data : answer
     });
 
@@ -125,14 +125,14 @@ const undoLikeAnswer = errorWrapper(async(req,res,next) => {
     const index = answer.likes.indexOf(req.user.id);
 
     answer.likes.splice(index,1);
-    
+    answer.likeCount -= 1;
+
     await answer.save();
 
     res
     .status(200)
     .json({
         success : false,
-        likesCount : answer.likesCount,
         data : answer
     });
 });

@@ -1,4 +1,5 @@
 const express = require("express");
+const User = require("../models/User");
 
 const router = express.Router();
 const {
@@ -11,9 +12,11 @@ const {
     getSingleUser
 } = require("../controllers/admin");
 
+const advanceQueryHelper = require("../middlewares/helpers/query/advanceQueryHelper");
+
 // Get All Users
 
-router.get("/",getAllUsers);
+router.get("/",advanceQueryHelper(User),getAllUsers);
 
 // Get Single User Profile
 

@@ -9,14 +9,16 @@ const AnswerSchema = new Schema({
         required : [true,"Please provide a content"],
         minlength : [20,"Please provide content at least 20 characters"]
     },
-    vote : {
-        type : Number,
-        default : 0
-    },
     createdAt : {
         type : Date,
         default : Date.now
     },
+    likeCount : {
+        type : Number,
+        default : 0,
+        min: 0
+    },
+
     likes : [
         {
             type : mongoose.Schema.ObjectId,

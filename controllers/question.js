@@ -5,16 +5,12 @@ const CustomError = require("../helpers/customError");
 
 const getAllQuestions = errorWrapper(async(req,res,next) => {
 
-    const questions = await Question.find()
-    .populate({path:"user",select:"name profile_image"});
-
+    /*const questions = await Question.find()
+    .populate({path:"user",select:"name profile_image"});*/
+    
     return res
     .status(200)
-    .json({
-        success : true,
-        count : questions.length,
-        data : questions
-    });
+    .json(res.advanceQueryResults);
 
 });
 const askNewQuestion = errorWrapper(async(req,res,next) => {
@@ -85,13 +81,13 @@ const likeQuestion = errorWrapper(async(req,res,next) => {
         return next(new CustomError("You already liked this question",400));
     }
     question.likes.push(req.user.id);
+    question.likeCount += 1;
 
     await question.save();
     
     return res.status(200)
     .json({
         success : true,
-        likesCount : question.likesCount,
         data : question
     });
 
@@ -107,6 +103,7 @@ const undoLikeQuestion = errorWrapper(async(req,res,next) => {
     const index = question.likes.indexOf(req.user.id);
 
     question.likes.splice(index,1);
+    question.likeCount -= 1;
     
     await question.save();
 
@@ -114,7 +111,6 @@ const undoLikeQuestion = errorWrapper(async(req,res,next) => {
     .status(200)
     .json({
         success : false,
-        likesQuestion : question.likesCount,
         data : question
     });
 });

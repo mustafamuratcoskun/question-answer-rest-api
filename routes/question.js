@@ -1,5 +1,6 @@
 const express = require("express");
 const answer = require("./answer");
+const Question = require("../models/Question");
 
 
 const {
@@ -23,14 +24,22 @@ const {
     getQuestionOwnerAccess
 } = require("../middlewares/authorization/auth");
 
- 
+const advanceQueryHelper = require("../middlewares/helpers/query/advanceQueryHelper");
+
 
 const router = express.Router();
 
 
 // Ask New Question
 // Permissions - Only Logged In Users
-router.get("/",getAllQuestions);
+router.get("/",advanceQueryHelper(Question, {
+    population : {
+        path:"user",
+        select:"name profile_image"
+    }
+}),getAllQuestions);
+
+
 router.get("/:id",checkQuestionExist,getSingleQuestion);
 router.get("/:id/like",[getAccessToRoute,checkQuestionExist],likeQuestion);
 router.get("/:id/undo_like",[getAccessToRoute,checkQuestionExist],undoLikeQuestion);
