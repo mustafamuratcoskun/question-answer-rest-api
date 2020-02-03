@@ -24,15 +24,15 @@ const {
     getQuestionOwnerAccess
 } = require("../middlewares/authorization/auth");
 
-const {advanceQueryMiddleware,subPaginationMiddleware}= require("../middlewares/helpers/query/advanceQueryHelper");
-
+const questionQueryMiddleware = require("../middlewares/helpers/query/questionQueryMiddleware");
+const commentQueryMiddleware = require("../middlewares/helpers/query/commentQueryMiddleware");
 
 const router = express.Router();
 
-
 // Ask New Question
 // Permissions - Only Logged In Users
-router.get("/",advanceQueryMiddleware(Question, {
+
+router.get("/",questionQueryMiddleware(Question, {
     population : {
         path:"user",
         select:"name profile_image"
@@ -40,7 +40,7 @@ router.get("/",advanceQueryMiddleware(Question, {
 }),getAllQuestions);
 
 
-router.get("/:id",[checkQuestionExist,subPaginationMiddleware(Question,{
+router.get("/:id",[checkQuestionExist,commentQueryMiddleware(Question,{
     array : "answers",
     populate: [{
         path: "user",

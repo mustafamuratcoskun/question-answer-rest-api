@@ -21,9 +21,6 @@ const {
     checkQuestionExist
 } = require("../middlewares/helpers/database/databaseErrorHelpers");
 
-
-const {subPaginationMiddleware} = require("../middlewares/helpers/query/advanceQueryHelper");
-
 const router = express.Router({mergeParams:true});
 
 router.get("/",checkQuestionExist,getAllAnswersByQuestion);

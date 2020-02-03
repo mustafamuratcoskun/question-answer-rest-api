@@ -13,7 +13,7 @@ const errorHandler = (err,req,res,next) => {
        customError = new CustomError(err.message,400);
     }
     if (err.name === "CastError") {
-        customError = new CustomError("Please provide a valid id",400);
+        customError = new CustomError("Please provide a valid input",400);
     }
     if (err.name === "MongoNetworkError") {
         customError = new CustomError("There is a problem with network,Please try again later",500);
