@@ -12,11 +12,11 @@ const {
     getSingleUser
 } = require("../controllers/admin");
 
-const advanceQueryHelper = require("../middlewares/helpers/query/advanceQueryHelper");
+const {advanceQueryMiddleware} = require("../middlewares/helpers/query/advanceQueryHelper");
 
 // Get All Users
 
-router.get("/",advanceQueryHelper(User),getAllUsers);
+router.get("/",advanceQueryMiddleware(User),getAllUsers);
 
 // Get Single User Profile
 

@@ -13,7 +13,7 @@ const {
     getBlockUser
 }  = require("../controllers/admin");
 
-const advanceQueryHelper = require("../middlewares/helpers/query/advanceQueryHelper");
+const {advanceQueryMiddleware} = require("../middlewares/helpers/query/advanceQueryHelper");
 
 const {
     checkUserExist
@@ -25,7 +25,7 @@ const router = express.Router();
 
 router.use([getAccessToRoute,getAdminAccess]);
 
-router.get("/users",advanceQueryHelper(User),getAllUsers);
+router.get("/users",advanceQueryMiddleware(User),getAllUsers);
 router.get("/user/:id",checkUserExist,getSingleUser);
 router.get("/block/:id",checkUserExist,getBlockUser);
 router.delete("/user/:id",checkUserExist,deleteUser);

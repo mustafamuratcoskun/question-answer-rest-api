@@ -1,3 +1,47 @@
+const subPaginationMiddleware = (model,options) => {
+    
+    return async(req,res,next) => {
+        const {id} = req.params;
+        const arrayName = options.array;
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 5;
+
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        const total = (await model.findById(id).select(arrayName))[arrayName].length;
+        
+        const  pagination = {}
+        if (startIndex > 0 ) {
+            pagination.prev = {
+                page : page - 1,
+                limit
+            }
+        }
+        if (endIndex < total){
+            pagination.next = {
+                page : page + 1,
+                limit
+            }
+        }
+        await model.find({_id: id},{answers: {$slice : [14,10]}}).populate({path : "user",select: "name profile_image"});
+        let queryObject = {};
+        queryObject[arrayName] = {$slice : [startIndex,limit]};
+
+        let result = await model.find({_id: id},queryObject)
+                     .populate(options.populate);
+
+        res.advanceQueryResults = {
+            success : true,
+            pagination,
+            data : result
+        };
+
+        next();
+    };
+}
+
 const paginationHelper = async(model,query,req) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 5;
@@ -59,7 +103,7 @@ const populateHelper = (query,populate) => {
     return query.populate(populate);
 
 }
-const advanceQueryHelper = function(model,options){
+const advanceQueryMiddleware = function(model,options){
     return async function(req,res,next) {
         // Initial Query
         let query = model.find({});
@@ -99,4 +143,7 @@ const advanceQueryHelper = function(model,options){
 
 } 
 
-module.exports = advanceQueryHelper;
+module.exports = {
+    advanceQueryMiddleware,
+    subPaginationMiddleware
+};

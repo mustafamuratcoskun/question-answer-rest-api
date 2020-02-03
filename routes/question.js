@@ -24,7 +24,7 @@ const {
     getQuestionOwnerAccess
 } = require("../middlewares/authorization/auth");
 
-const advanceQueryHelper = require("../middlewares/helpers/query/advanceQueryHelper");
+const {advanceQueryMiddleware,subPaginationMiddleware}= require("../middlewares/helpers/query/advanceQueryHelper");
 
 
 const router = express.Router();
@@ -32,7 +32,7 @@ const router = express.Router();
 
 // Ask New Question
 // Permissions - Only Logged In Users
-router.get("/",advanceQueryHelper(Question, {
+router.get("/",advanceQueryMiddleware(Question, {
     population : {
         path:"user",
         select:"name profile_image"
@@ -40,7 +40,23 @@ router.get("/",advanceQueryHelper(Question, {
 }),getAllQuestions);
 
 
-router.get("/:id",checkQuestionExist,getSingleQuestion);
+router.get("/:id",[checkQuestionExist,subPaginationMiddleware(Question,{
+    array : "answers",
+    populate: [{
+        path: "user",
+        select : "name profile_image"
+    },
+    {
+        path : "answers",
+        populate : {
+            path:"user"  
+        },
+        
+        select : "content user" 
+        
+    }]
+
+})],getSingleQuestion);
 router.get("/:id/like",[getAccessToRoute,checkQuestionExist],likeQuestion);
 router.get("/:id/undo_like",[getAccessToRoute,checkQuestionExist],undoLikeQuestion);
 router.post("/ask",getAccessToRoute,askNewQuestion);

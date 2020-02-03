@@ -26,17 +26,10 @@ const askNewQuestion = errorWrapper(async(req,res,next) => {
     });
 });
 const getSingleQuestion = errorWrapper(async (req,res,next) => {
-    const {id} = req.params;
-    const question = await Question.findById(id)
-    .populate({path : "user",select: "name profile_image"});
     
     return res
     .status(200)
-    .json({
-        success : true,
-        likesCount : question.likesCount,
-        data : question
-    });
+    .json(res.advanceQueryResults);
 
 });
 const editQuestion = errorWrapper(async(req,res,next) => {

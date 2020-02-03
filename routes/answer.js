@@ -22,7 +22,7 @@ const {
 } = require("../middlewares/helpers/database/databaseErrorHelpers");
 
 
-const advanceQueryHelper = require("../middlewares/helpers/query/advanceQueryHelper");
+const {subPaginationMiddleware} = require("../middlewares/helpers/query/advanceQueryHelper");
 
 const router = express.Router({mergeParams:true});
 
