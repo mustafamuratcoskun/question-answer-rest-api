@@ -4,17 +4,16 @@ In this project, I created a backend Rest Api that includes basic functionalitie
 
 
 ### Questions
-- List all bootcamps in the database
-   * Pagination
-   * Select specific fields in result
-   * Limit number of results
-   * Filter by fields
+- List all questions - Public Operation
+   * Paginate and  Limit number of Questions 
+   * Sorting Questions By Most-Answered, Most-Liked or More Recent(Default)
+   * Searching Questions By Title
+   * Population User Of The Question
 
+- Get a single question with their answers - Public Operation
 
-- Search bootcamps by radius from zipcode
-  * Use a geocoder to get exact location and coords from a single address field
-- Get single bootcamp
-- Create new bootcamp
+- Ask (Create) a New Question
+
   * Authenticated users only
   * Must have the role "publisher" or "admin"
   * Only one bootcamp per publisher (admins can create more)
