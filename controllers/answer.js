@@ -1,8 +1,8 @@
 const Answer = require("../models/Answer");
 const Question = require("../models/Question");
 
-const errorWrapper = require("../helpers/errorWrapper");
-const CustomError = require("../helpers/customError");
+const errorWrapper = require("../helpers/error/errorWrapper");
+const CustomError = require("../helpers/error/customError");
 
 
 const getSingleAnswer = errorWrapper(async (req,res,next) => {

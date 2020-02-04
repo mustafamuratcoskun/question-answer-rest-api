@@ -1,8 +1,8 @@
 const User = require("../models/User");
-const errorWrapper = require("../helpers/errorWrapper");
-const CustomError = require("../helpers/customError");
+const errorWrapper = require("../helpers/error/errorWrapper");
+const CustomError = require("../helpers/error/customError");
 const bcrypt = require("bcryptjs");
-const sendMail = require("../helpers/sendEmail");
+const sendMail = require("../helpers/libraries/sendEmail");
 
 
 /*

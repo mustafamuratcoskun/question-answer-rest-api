@@ -13,11 +13,11 @@ const {
     getBlockUser
 }  = require("../controllers/admin");
 
-const userQueryMiddleware = require("../middlewares/helpers/query/userQueryMiddleware");
+const userQueryMiddleware = require("../middlewares/query/userQueryMiddleware");
 
 const {
     checkUserExist
-} = require("../middlewares/helpers/database/databaseErrorHelpers");
+} = require("../middlewares/database/databaseErrorHelpers");
 
 const router = express.Router();
 

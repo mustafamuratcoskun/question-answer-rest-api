@@ -19,7 +19,7 @@ const {
 const {
     checkQuestionAndAnswerExist,
     checkQuestionExist
-} = require("../middlewares/helpers/database/databaseErrorHelpers");
+} = require("../middlewares/database/databaseErrorHelpers");
 
 const router = express.Router({mergeParams:true});
 

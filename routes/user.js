@@ -4,7 +4,7 @@ const User = require("../models/User");
 const router = express.Router();
 const {
     checkUserExist
-} = require("../middlewares/helpers/database/databaseErrorHelpers");
+} = require("../middlewares/database/databaseErrorHelpers");
 
 // users,profile
 const {
@@ -12,7 +12,7 @@ const {
     getSingleUser
 } = require("../controllers/admin");
 
-const userQueryMiddleware = require("../middlewares/helpers/query/userQueryMiddleware");
+const userQueryMiddleware = require("../middlewares/query/userQueryMiddleware");
 
 // Get All Users
 

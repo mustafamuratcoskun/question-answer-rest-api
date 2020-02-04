@@ -1,8 +1,8 @@
 const express = require("express");
-const connectDatabase = require("./config/js/connectDatabase");
+const connectDatabase = require("./helpers/database/connectDatabase");
 const errorHandler = require("./middlewares/errors/errorHandler");
 const path = require("path");
-const photoUpload = require("./config/js/multer");
+const photoUpload = require("./helpers/libraries/multer");
 const getAccessToRoute = require("./middlewares/authorization/auth");
 
 // Security

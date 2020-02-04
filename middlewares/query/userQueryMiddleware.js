@@ -1,4 +1,8 @@
-const errorWrapper = require("../../../helpers/errorWrapper");
+const path = require("path");
+const root = path.dirname(require.main.filename);
+
+
+const errorWrapper = require(root + "/helpers/error/errorWrapper");
 
 const {
     searchHelper,

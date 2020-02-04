@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Question = require("./Question");
-const errorWrapper = require("../helpers/errorWrapper");
+const errorWrapper = require("../helpers/error/errorWrapper");
 
 const AnswerSchema = new Schema({
     content : {

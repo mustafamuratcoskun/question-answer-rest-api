@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const photoUpload = require("../config/js/multer");
+const photoUpload = require("../helpers/libraries/multer");
 
 // Controller Functionality
 const {

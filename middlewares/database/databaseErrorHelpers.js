@@ -5,8 +5,8 @@ const Answer = require(root +"/models/Answer");
 const Question = require(root + "/models/Question");
 const User = require(root + "/models/User");
 
-const errorWrapper = require(root + "/helpers/errorWrapper");
-const CustomError = require(root + "/helpers/customError");
+const errorWrapper = require(root + "/helpers/error/errorWrapper");
+const CustomError = require(root + "/helpers/error/customError");
 
 const checkQuestionExist = errorWrapper(async (req,res,next) => {
     const question_id = req.params.id || req.params.question_id;

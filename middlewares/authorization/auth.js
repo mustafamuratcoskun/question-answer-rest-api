@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
-const errorWrapper = require("../../helpers/errorWrapper");
+const errorWrapper = require("../../helpers/error/errorWrapper");
 const User = require("../../models/User");
 const Question = require("../../models/Question");
 const Answer = require("../../models/Answer");
 
-const CustomError = require("../../helpers/customError");
+const CustomError = require("../../helpers/error/customError");
 
 const getAccessToRoute = errorWrapper(async(req,res,next) => {
     // Is Token Included

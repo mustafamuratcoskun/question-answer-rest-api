@@ -5,6 +5,7 @@ const getPaginatorVariables = async (req,total) => {
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
+ 
 
     
     const  pagination = {}
@@ -29,12 +30,12 @@ const getPaginatorVariables = async (req,total) => {
 
 
 const paginationHelper = async (model,query,req) => {
-    const total = model.countDocuments();
-
+    const total = await model.countDocuments();
+    
     const {pagination,startIndex,limit} = await getPaginatorVariables(
         req,
        total);
-    
+   
     return {
         query : query.skip(startIndex).limit(limit),
         pagination : Object.keys(pagination).length === 0 ? undefined : pagination
@@ -78,6 +79,5 @@ module.exports = {
     paginationHelper,
     searchHelper,
     questionSortHelper,
-    paginationHelper,
     populateHelper
 };

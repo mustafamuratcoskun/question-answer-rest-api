@@ -1,4 +1,7 @@
-const errorWrapper = require("../../../helpers/errorWrapper");
+const path = require("path");
+const root = path.dirname(require.main.filename);
+
+const errorWrapper = require(root + "/helpers/error/errorWrapper");
 
 const {
     
@@ -38,11 +41,12 @@ const questionQueryMiddleware = function(model,options){
         pagination = paginationResult.pagination;
         
         const advanceQueryResults = await query;
+        console.log(pagination);
         
         res.advanceQueryResults = {
             success : true,
             count : advanceQueryResults.length,
-            pagination,
+            pagination : pagination,
             data : advanceQueryResults
         };
         next();

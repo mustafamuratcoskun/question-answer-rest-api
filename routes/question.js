@@ -5,7 +5,7 @@ const Question = require("../models/Question");
 
 const {
     checkQuestionExist
-} = require("../middlewares/helpers/database/databaseErrorHelpers");
+} = require("../middlewares/database/databaseErrorHelpers");
 
 const {
     askNewQuestion,
@@ -24,8 +24,8 @@ const {
     getQuestionOwnerAccess
 } = require("../middlewares/authorization/auth");
 
-const questionQueryMiddleware = require("../middlewares/helpers/query/questionQueryMiddleware");
-const commentQueryMiddleware = require("../middlewares/helpers/query/commentQueryMiddleware");
+const questionQueryMiddleware = require("../middlewares/query/questionQueryMiddleware");
+const commentQueryMiddleware = require("../middlewares/query/commentQueryMiddleware");
 
 const router = express.Router();
 
