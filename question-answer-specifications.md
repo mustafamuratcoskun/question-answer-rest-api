@@ -12,15 +12,24 @@ In this project, I created a backend Rest Api that includes basic functionalitie
 
 - Get a single question with their answers - Public Operation
 
-- Ask (Create) a New Question
+- Ask (Create) a New Question - Private Operation
+  * Authenticated users only (Logged In Users) 
+  * Field validation 
 
-  * Authenticated users only
-  * Must have the role "publisher" or "admin"
-  * Only one bootcamp per publisher (admins can create more)
-  * Field validation via Mongoose
-- Upload a photo for bootcamp
-  * Owner only
-  * Photo will be uploaded to local filesystem
+- Edit a Question - Private Operation
+  * Owner User Only
+  * Field Validation
+- Delete a Question - Private Operation
+  * Owner User Only
+  * Field Validation
+- Like a Question - Private operation
+  * Authenticated user only
+  * Only 1 Like Per User
+- Undo Like a Question - Private operation
+  * Authenticated user only
+  * Only Applicable To Question That Liked Before
+
+
 - Update bootcamps
   * Owner only
   * Validation on update
