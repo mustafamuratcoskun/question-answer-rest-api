@@ -5,7 +5,7 @@ const errorWrapper = require(root + "/helpers/error/errorWrapper");
 
 const {getPaginatorVariables,populateHelper} = require("./queryMiddlewareHelpers");
 
-const commentQueryMiddleware = (model,options) => {
+const answerQueryMiddleware = (model,options) => {
     
     return errorWrapper(async(req,res,next) => {
         
@@ -38,4 +38,4 @@ const commentQueryMiddleware = (model,options) => {
     });
 };
 
-module.exports = commentQueryMiddleware;
+module.exports = answerQueryMiddleware;

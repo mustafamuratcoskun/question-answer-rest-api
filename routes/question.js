@@ -25,7 +25,7 @@ const {
 } = require("../middlewares/authorization/auth");
 
 const questionQueryMiddleware = require("../middlewares/query/questionQueryMiddleware");
-const commentQueryMiddleware = require("../middlewares/query/commentQueryMiddleware");
+const answerQueryMiddleware = require("../middlewares/query/answerQueryMiddleware");
 
 const router = express.Router();
 
@@ -40,7 +40,7 @@ router.get("/",questionQueryMiddleware(Question, {
 }),getAllQuestions);
 
 
-router.get("/:id",[checkQuestionExist,commentQueryMiddleware(Question,{
+router.get("/:id",[checkQuestionExist,answerQueryMiddleware(Question,{
     array : "answers",
     populate: [{
         path: "user",

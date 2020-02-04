@@ -4,39 +4,57 @@ In this project, I created a backend Rest Api that includes basic functionalitie
 
 
 ### Questions
-- List all questions - Public Operation
+
+#### Public Operations
+
+- List all questions
    * Paginate and  Limit number of Questions 
    * Sorting Questions By Most-Answered, Most-Liked or More Recent(Default)
    * Searching Questions By Title
    * Population User Of The Question
 
-- Get a single question with their answers - Public Operation
+- Get a single question with their answers
 
-- Ask (Create) a New Question - Private Operation
+#### Private Operations
+
+- Ask (Create) a New Question
   * Authenticated users only (Logged In Users) 
   * Field validation 
 
-- Edit a Question - Private Operation
+- Edit a Question
   * Owner User Only
   * Field Validation
-- Delete a Question - Private Operation
+- Delete a Question
   * Owner User Only
-  * Field Validation
-- Like a Question - Private operation
+- Like a Question
   * Authenticated user only
   * Only 1 Like Per User
-- Undo Like a Question - Private operation
+- Undo Like a Question
   * Authenticated user only
   * Only Applicable To Question That Liked Before
 
+### Answers
 
-- Update bootcamps
-  * Owner only
-  * Validation on update
-- Delete Bootcamp
-  * Owner only
-- Calculate the average cost of all courses for a bootcamp
-- Calculate the average rating from the reviews for a bootcamp
+#### Public Operations
+- Get All Answers by Question Id
+- Get Single Answer By Answer Id
+
+#### Private Operations
+- Add (Create) a New Answer To Question
+  * Authenticated users only (Logged In Users) 
+  * Field validation 
+
+- Edit a Answer
+  * Owner User Only
+  * Field Validation
+- Delete a Answer
+  * Owner User Only
+- Like a Answer
+  * Authenticated user only
+  * Only 1 Like Per User
+- Undo Like a Answer
+  * Authenticated user only
+  * Only Applicable To Answer That Liked Before
 
 ### Courses
 - List all courses for bootcamp
