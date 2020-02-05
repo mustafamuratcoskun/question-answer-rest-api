@@ -14,7 +14,6 @@ Note : This api is still being developed. Feel free to contribute this project.
    * Sorting Questions By Most-Answered, Most-Liked or More Recent(Default)
    * Searching Questions By Title
    * Population User Of The Question
-
 - Get a single question with their answers
 
 #### Private Operations
@@ -22,7 +21,6 @@ Note : This api is still being developed. Feel free to contribute this project.
 - Ask (Create) a New Question
   * Authenticated users only (Logged In Users) 
   * Field validation 
-
 - Edit a Question
   * Owner User Only
   * Field Validation
@@ -75,27 +73,75 @@ Note : This api is still being developed. Feel free to contribute this project.
 ### Authentication
 
 - Authentication Strategy : JWT and Cookie
- * JWT and Cookie Expiration : 30 Minutes For Testing Api
+  * JWT and Cookie Expiration : 30 Minutes For Testing Api
 - Registration
- * User can register as a "Admin" or simply "User"
- * Password Hash
- * Token includes : "id" and "name"
- * Token Are Stored In Cookie  
+  * User can register as a "Admin" or simply "User"
+  * Password Hash
+  * Token includes : "id" and "name"
+  * Token Are Stored In Cookie  
 - Login
- * User can login with "email" and "password"
- * Everytime a user login, new Token are sent to to client and stored in cookie.
+  * User can login with "email" and "password"
+  * Everytime a user login, new Token are sent to to client and stored in cookie.
 - Logout
- * Token set to null in cookie.
+  * Token set to null in cookie.
 - Forgot Password
- * Reset Password Token send to client via email.
- * This token expires in 1 hour.
+  * Reset Password Token send to client via email.
+  * This token expires in 1 hour.
 - Reset Password
- * Reset Password Token can be used in 1 hour.
- * User can set a new password using this token.
+  * Reset Password Token can be used in 1 hour.
+  * User can set a new password using this token.
 - Update User Details (Bio)
- * Users can add their bio details when logged in.
+  * Users can add their bio details when logged in.
 - User Profile
- * Users can view their personal information after they login.
+  * Users can view their personal information after they login.
 - Profile Photo Upload
- * Users can upload an avatar for their profile.
+  * Users can upload an avatar for their profile.
+
+### Models
+
+#### User
+- name
+  * type : String
+  * required : true
+  * Validation : "Please provide a name"
+- email
+  * type : String
+  * required : true
+  * unique : true
+  * Validation with Regex : Please provide a valid email
+- role
+  * type : String
+  * enum : user,admin
+  * default : user
+- password
+  * type : String
+  * required : true
+  * minlength : 6
+  * Validation : Please provide a password
+- createdAt
+  * type : String
+  * default : Date.now
+- title
+  * type : String
+- about
+  * type : String
+- website
+  * type : String
+- place
+  * type : String
+- profile_image
+  * type : String
+- blocked
+  * type : Boolean
+  * default : false
+- resetPasswordToken
+  * type : String
+- resetPasswordExpire
+  * type : Date
+
+### Question
+
+
+
+
 
