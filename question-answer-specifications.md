@@ -5,7 +5,7 @@ In this project, I created a backend Rest Api that includes basic functionalitie
 Note : This api is still being developed. Feel free to contribute this project.
 
 
-### Questions
+## Questions
 
 #### Public Operations
 
@@ -33,7 +33,7 @@ Note : This api is still being developed. Feel free to contribute this project.
   * Authenticated user only
   * Only Applicable To Question That Liked Before
 
-### Answers
+## Answers
 
 #### Public Operations
 - Get All Answers by Question Id
@@ -56,7 +56,7 @@ Note : This api is still being developed. Feel free to contribute this project.
   * Authenticated user only
   * Only Applicable To Answer That Liked Before
 
-### Users
+## Users
 
 #### Public Operations
 
@@ -70,7 +70,7 @@ Note : This api is still being developed. Feel free to contribute this project.
 - Block A User
 - Delete A User
 
-### Authentication
+## Authentication
 
 - Authentication Strategy : JWT and Cookie
   * JWT and Cookie Expiration : 30 Minutes For Testing Api
@@ -97,7 +97,7 @@ Note : This api is still being developed. Feel free to contribute this project.
 - Profile Photo Upload
   * Users can upload an avatar for their profile.
 
-### Models
+## Models
 
 #### User
 - name
@@ -200,7 +200,7 @@ Note : This api is still being developed. Feel free to contribute this project.
   * ref : Question
   * required : true
 
-### Middlewares
+## Middlewares
 
 #### Authorization
 
@@ -237,7 +237,7 @@ Note : This api is still being developed. Feel free to contribute this project.
   * helmet
   * mongoSanitize
 
-### Helper Functions and Classes
+## Helper Functions and Classes
 
 #### Database
 
@@ -259,6 +259,14 @@ Note : This api is still being developed. Feel free to contribute this project.
 - sendEmail
   * Helper Function That Customized 
   Mail Process with NodeMailer Package
+
+## Environment Variables and Constants
+
+Environment Variables and Constants Can Be Set in ./config/env/config.env.
+
+
+
+
 
 
 
