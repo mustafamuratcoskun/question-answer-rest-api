@@ -124,8 +124,6 @@ const forgotPassword = errorWrapper(async (req,res,next) => {
 
     }
     const resetPasswordToken = user.getResetPasswordToken();
-    console.log(resetPasswordToken);
-    console.log(user);
 
     await user.save();
 
@@ -159,15 +157,7 @@ const forgotPassword = errorWrapper(async (req,res,next) => {
         user.save();
 
         return next(new CustomError("Email Could Not Be Sent",500));
-    }
-    return res.status(200)
-    .json({
-        success : true,
-            message : "Email Sent",
-            data : user
-    });
-    
-    
+    }    
 });
 
 const resetPassword = errorWrapper(async (req,res,next) => {
