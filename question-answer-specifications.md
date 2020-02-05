@@ -103,7 +103,7 @@ Note : This api is still being developed. Feel free to contribute this project.
 - name
   * type : String
   * required : true
-  * Validation : "Please provide a name"
+  * Validation : Please provide a name
 - email
   * type : String
   * required : true
@@ -139,9 +139,126 @@ Note : This api is still being developed. Feel free to contribute this project.
 - resetPasswordExpire
   * type : Date
 
-### Question
+#### Question
+
+- title
+  * type : String
+  * required : true
+  * Validation : Please provide a title
+  * minLength : 10
+  * unique : true
+- content
+  * type : String
+  * required : true
+  * Validation : Please provide a content
+  * minLength : 20
+- slug
+  * type : String
+- createdAt
+  * type : Date
+  * default : Date.now
+- likeCount
+  * type : Number
+  * default : 0
+  * min : 0
+- likes
+  * type : Array(ObjectId)
+  * ref  : "User"
+- user
+  * type : ObjectId
+  * ref : "User"
+- answerCount
+  * type : Number
+  * default : 0
+- answers
+  * type : Array(ObjectId)
+  * ref : Answer
+
+#### Answer
+
+- content
+  * type : String
+  * required : true
+  * Validation : Please provide a content
+  * minLength : 20
+- createdAt
+  * type : Date
+  * default  : Date.now
+- likeCount
+  * type : Number
+  * default : 0
+  * min : 0
+- likes
+  * type : Array(ObjectId)
+  * ref : User
+- user
+  * type : ObjectId
+  * ref : User
+  * required : true
+- question
+  * type : ObjectId
+  * ref : Question
+  * required : true
+
+### Middlewares
+
+#### Authorization
+
+- Middlewares That Protect Routes From Unauthorized Access
+  * getAccessToRoute
+  * getAdminAccess
+  * getQuestionOwnerAccess
+  * getAnswerOwnerAccess
+
+#### Database
+
+- Middlewares That Check Entities Exist With Given Ids
+  * checkQuestionAndAnswerExist
+  * checkQuestionExist
+  * checkUserExist
+
+#### Error 
+
+- Middleware That Captures All Errors
+  * errorHandler
+
+#### Query
+
+- Middleware That Provides Advance Query Functionalities
+  * answerQueryMiddleware
+  * questionQueryMiddleware
+  * userQueryMiddleware
+
+#### Security
+- Middleware That Provides Security to Rest Api
+  * limitAccess
+  * hpp
+  * cors
+  * helmet
+  * mongoSanitize
+
+### Helper Functions and Classes
+
+#### Database
+
+- connectDatabase
+  * MongoDb Connection
 
 
+#### Error
+
+- customError
+  * Customized Error Class
+- errorWrapper
+  * Function that catches asynchronous errors
+
+#### 3rd Party Libraries
+
+- photoUpload
+  * Helper Function That Customized Upload Process with Multer Package
+- sendEmail
+  * Helper Function That Customized 
+  Mail Process with NodeMailer Package
 
 
 
