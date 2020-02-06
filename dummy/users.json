@@ -3,15 +3,15 @@
         "_id" : "5e30275d141401679e3832a1",
         "role" : "admin",
         "name" : "Admin",
-        "email" : "coskun.m.murat@gmail.com",
+        "email" : "questionanswer.info@gmail.com",
         "password" : "123456"
 
     },
     {
         "_id" : "5e2866280427c1ff0dd2b5cb",
         "role" : "user",
-        "name" : "Mustafa Murat Coşkun",
-        "email" : "mustafamuratcoskun805@gmail.com",
+        "name" : "Emre Toker",
+        "email" : "emretoker1212121212@gmail.com",
         "password" : "123456"
 
     },
