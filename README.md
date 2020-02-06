@@ -53,5 +53,5 @@ We define express middlewares in `middlewares/authorization/auth.js` that can be
 
 ## API Specifications
 
-Detailed information can be found [this specifications](./question-answer-specifications). 
+Detailed information can be found in [this specifications](./question-answer-specifications.md). 
 
