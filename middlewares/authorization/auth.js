@@ -21,7 +21,7 @@ const getAccessToRoute = errorWrapper(async(req,res,next) => {
     jwt.verify(accessToken,process.env.JWT_SECRET_KEY,(err,decodedToken) => {
         
         if (err) {
-            return next(new CustomError("You are not authorized to access this page",403));
+            return next(new CustomError("You are not authorized to access this page",401));
         }
         req.user = {
             id : decodedToken.id,
