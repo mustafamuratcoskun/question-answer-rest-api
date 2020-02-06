@@ -4,15 +4,6 @@ const CustomError = require("../helpers/error/customError");
 const bcrypt = require("bcryptjs");
 const sendMail = require("../helpers/libraries/sendEmail");
 
-
-/*
-@description : Register New User
-@access : Public - Everyone can access this functionality
-@route  : {{URL}}/api/v1/auth/register 
-@method : POST
-*/
-
-// Error Handler Makalesi - https://thecodebarbarian.com/80-20-guide-to-express-error-handling
 const register =  errorWrapper(async (req,res,next) => {
   
     const {name,email,password,role} = req.body;
@@ -114,9 +105,6 @@ const updateDetails = errorWrapper(async (req,res,next) => {
 const forgotPassword = errorWrapper(async (req,res,next) => {
 
     const resetEmail = req.body.email;
-
-    // Check Email
-
     const user = await User.findOne({email: resetEmail});
 
     if (!user) {
@@ -138,10 +126,10 @@ const forgotPassword = errorWrapper(async (req,res,next) => {
     `;
     try {
         await sendMail({
-            from: process.env.SMTP_EMAIL, // sender address
-            to: resetEmail, // list of receivers
-            subject: "Reset Password Token", // Subject line
-            html: emailTemplate // html body
+            from: process.env.SMTP_EMAIL, 
+            to: resetEmail, 
+            subject: "Reset Password Token",
+            html: emailTemplate
         });
         return res.status(200)
         .json({
@@ -176,10 +164,6 @@ const resetPassword = errorWrapper(async (req,res,next) => {
     if (!user) {
         return next(new CustomError("Invalid Token or Session Expired",404));
     }
-    // console.log(password,confirm,req.body);
-    // if (!matchPassword(password,confirm)) {
-    //     return next(new CustomError("Your passwords does not match",400));
-    // }
     user.password  = password;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;

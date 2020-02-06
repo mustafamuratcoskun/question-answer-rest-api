@@ -65,7 +65,7 @@ const editAnswer = errorWrapper(async(req,res,next) => {
     const {content} = req.body;
 
     let answer = await Answer.findById(answer_id);
-    console.log(answer);
+    
     
     answer.content = content;
 
@@ -89,7 +89,7 @@ const deleteAnswer = errorWrapper(async (req,res,next) => {
     res.status(200)
     .json({
         success : true,
-        message : {}
+        message : "Answer Deleted Successfully"
     });
 
 });
